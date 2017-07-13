@@ -1,5 +1,9 @@
 # go-lifecycle
 
+## Usage
+
+This project uses [gopkg](http://labix.org/gopkg.in) to handle versioning. Find more information about how to install and where to find the API documentation [here](http://gopkg.in/henrikfricke/go-lifecycle.v1).
+
 ## About the project
 
 This project is inspired by the [Lifecycle](https://serverless.com/blog/writing-serverless-plugins/#lifecycle-events) of the [Serverless Framework](https://serverless.com/). The Serverless CLI handles plugins, which are able to hook before or after a process. Every plugin is also a process in the lifecycle, so other plugins can hook before or after a plugin as well. I really liked the way how Serverless build the plugin architecture and I wanted to think about how to achieve this process management in Go.
@@ -56,7 +60,3 @@ I'am a task
 ```
 
 You can find a more complex example in the `example` folder. You can clone this repository on your local machine and execute the example with `go run example/example.go`.
-
-## API
-
-You can find the documentation on [godoc](http://godoc.org/github.com/HenrikFricke/go-lifecycle).
