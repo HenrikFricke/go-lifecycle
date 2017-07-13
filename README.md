@@ -56,3 +56,7 @@ I'am a task
 ```
 
 You can find a more complex example in the `example` folder. You can clone this repository on your local machine and execute the example with `go run example/example.go`.
+
+## API
+
+You can find the documentation on [godoc](http://godoc.org/github.com/HenrikFricke/go-lifecycle).
