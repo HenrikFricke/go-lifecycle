@@ -13,7 +13,7 @@ func TestLifecyleExecution(t *testing.T) {
 
 	lifecyle.AddTask(task1Name, func(luggage interface{}) { output = output + "|task one called|" })
 	lifecyle.AddTask(task2Name, func(luggage interface{}) { output = output + "|task two called|" })
-	lifecyle.AddHook(task3Name, func(luggage interface{}) { output = output + "|task three called|" }, task2Name, PRE)
+	lifecyle.AddPreHook(task2Name, task3Name, func(luggage interface{}) { output = output + "|task three called|" })
 
 	lifecyle.Execute(nil)
 

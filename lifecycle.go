@@ -1,14 +1,5 @@
 package golifecycle
 
-// hook describes when to run a task
-type hook uint8
-
-// Hooks
-const (
-	PRE hook = iota + 1
-	POST
-)
-
 // Lifecyle manages tasks
 type Lifecyle struct {
 	mainTask *task
@@ -25,24 +16,24 @@ func (l *Lifecyle) AddTask(taskName TaskName, taskFunc func(luggage interface{})
 	l.mainTask.AddPostHook(newTask)
 }
 
-// AddHook adds a task as a hook
-func (l *Lifecyle) AddHook(taskName TaskName, taskFunc func(luggage interface{}), previousTaskName TaskName, hook hook) {
+// AddPreHook adds a task as a pre hook
+func (l *Lifecyle) AddPreHook(previousTaskName TaskName, hookName TaskName, taskFunc func(luggage interface{})) {
 	newTask := &task{
-		Name:    taskName,
+		Name:    hookName,
 		Process: taskFunc}
 
-	l.tasks[taskName] = newTask
+	l.tasks[hookName] = newTask
+	l.tasks[previousTaskName].AddPreHook(newTask)
+}
 
-	switch hook {
-	case PRE:
-		{
-			l.tasks[previousTaskName].AddPreHook(newTask)
-		}
-	case POST:
-		{
-			l.tasks[previousTaskName].AddPostHook(newTask)
-		}
-	}
+// AddPostHook adds a task as a post hook
+func (l *Lifecyle) AddPostHook(previousTaskName TaskName, hookName TaskName, taskFunc func(luggage interface{})) {
+	newTask := &task{
+		Name:    hookName,
+		Process: taskFunc}
+
+	l.tasks[hookName] = newTask
+	l.tasks[previousTaskName].AddPostHook(newTask)
 }
 
 // Execute executes the whole lifecycle

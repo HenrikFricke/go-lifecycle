@@ -42,7 +42,7 @@ func main() {
 	lifecyle.AddTask(task2Name, incrementTask)
 	lifecyle.AddTask(lastTaskName, printOut)
 
-	lifecyle.AddHook(task3Name, incrementTask, task2Name, glc.PRE)
+	lifecyle.AddPreHook(task2Name, task3Name, incrementTask)
 
 	lifecyle.Execute(&c)
 }
