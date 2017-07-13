@@ -1,13 +1,13 @@
 package golifecycle
 
-// Lifecyle manages tasks
-type Lifecyle struct {
+// Lifecycle manages tasks
+type Lifecycle struct {
 	mainTask *task
 	tasks    map[TaskName]*task
 }
 
 // AddTask adds a task after the main process
-func (l *Lifecyle) AddTask(taskName TaskName, taskFunc func(luggage interface{})) {
+func (l *Lifecycle) AddTask(taskName TaskName, taskFunc func(luggage interface{})) {
 	newTask := &task{
 		Name:    taskName,
 		Process: taskFunc}
@@ -17,7 +17,7 @@ func (l *Lifecyle) AddTask(taskName TaskName, taskFunc func(luggage interface{})
 }
 
 // AddPreHook adds a task as a pre hook
-func (l *Lifecyle) AddPreHook(previousTaskName TaskName, hookName TaskName, taskFunc func(luggage interface{})) {
+func (l *Lifecycle) AddPreHook(previousTaskName TaskName, hookName TaskName, taskFunc func(luggage interface{})) {
 	newTask := &task{
 		Name:    hookName,
 		Process: taskFunc}
@@ -27,7 +27,7 @@ func (l *Lifecyle) AddPreHook(previousTaskName TaskName, hookName TaskName, task
 }
 
 // AddPostHook adds a task as a post hook
-func (l *Lifecyle) AddPostHook(previousTaskName TaskName, hookName TaskName, taskFunc func(luggage interface{})) {
+func (l *Lifecycle) AddPostHook(previousTaskName TaskName, hookName TaskName, taskFunc func(luggage interface{})) {
 	newTask := &task{
 		Name:    hookName,
 		Process: taskFunc}
@@ -37,15 +37,15 @@ func (l *Lifecyle) AddPostHook(previousTaskName TaskName, hookName TaskName, tas
 }
 
 // Execute executes the whole lifecycle
-func (l *Lifecyle) Execute(luggage interface{}) {
+func (l *Lifecycle) Execute(luggage interface{}) {
 	l.mainTask.Run(luggage)
 }
 
-// NewLifecyle returns a lifecyle
-func NewLifecyle() *Lifecyle {
+// NewLifecycle returns a lifecycle
+func NewLifecycle() *Lifecycle {
 	mainTask := task{Process: func(l interface{}) {}}
 
-	return &Lifecyle{
+	return &Lifecycle{
 		mainTask: &mainTask,
 		tasks:    make(map[TaskName]*task)}
 }

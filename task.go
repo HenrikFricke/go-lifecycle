@@ -1,7 +1,7 @@
 package golifecycle
 
 // TaskName describes the name of a task
-// it has to be unique within a Lifecyle
+// it has to be unique within a Lifecycle
 type TaskName string
 
 // task handles a process with hooks

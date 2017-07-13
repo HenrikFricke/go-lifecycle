@@ -36,13 +36,13 @@ func printOut(luggage interface{}) {
 
 func main() {
 	c := counter{}
-	lifecyle := glc.NewLifecyle()
+	lifecycle := glc.NewLifecycle()
 
-	lifecyle.AddTask(task1Name, incrementTask)
-	lifecyle.AddTask(task2Name, incrementTask)
-	lifecyle.AddTask(lastTaskName, printOut)
+	lifecycle.AddTask(task1Name, incrementTask)
+	lifecycle.AddTask(task2Name, incrementTask)
+	lifecycle.AddTask(lastTaskName, printOut)
 
-	lifecyle.AddPreHook(task2Name, task3Name, incrementTask)
+	lifecycle.AddPreHook(task2Name, task3Name, incrementTask)
 
-	lifecyle.Execute(&c)
+	lifecycle.Execute(&c)
 }
