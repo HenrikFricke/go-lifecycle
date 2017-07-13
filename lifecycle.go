@@ -16,7 +16,7 @@ type Lifecyle struct {
 }
 
 // AddTask adds a task after the main process
-func (l *Lifecyle) AddTask(taskName TaskName, taskFunc func()) {
+func (l *Lifecyle) AddTask(taskName TaskName, taskFunc func(luggage interface{})) {
 	newTask := &task{
 		Name:    taskName,
 		Process: taskFunc}
@@ -26,7 +26,7 @@ func (l *Lifecyle) AddTask(taskName TaskName, taskFunc func()) {
 }
 
 // AddHook adds a task as a hook
-func (l *Lifecyle) AddHook(taskName TaskName, taskFunc func(), previousTaskName TaskName, hook hook) {
+func (l *Lifecyle) AddHook(taskName TaskName, taskFunc func(luggage interface{}), previousTaskName TaskName, hook hook) {
 	newTask := &task{
 		Name:    taskName,
 		Process: taskFunc}
@@ -46,13 +46,13 @@ func (l *Lifecyle) AddHook(taskName TaskName, taskFunc func(), previousTaskName 
 }
 
 // Execute executes the whole lifecycle
-func (l *Lifecyle) Execute() {
-	l.mainTask.Run()
+func (l *Lifecyle) Execute(luggage interface{}) {
+	l.mainTask.Run(luggage)
 }
 
 // NewLifecyle returns a lifecyle
 func NewLifecyle() *Lifecyle {
-	mainTask := task{Process: func() {}}
+	mainTask := task{Process: func(l interface{}) {}}
 
 	return &Lifecyle{
 		mainTask: &mainTask,

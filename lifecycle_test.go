@@ -11,11 +11,11 @@ func TestLifecyleExecution(t *testing.T) {
 
 	lifecyle := NewLifecyle()
 
-	lifecyle.AddTask(task1Name, func() { output = output + "|task one called|" })
-	lifecyle.AddTask(task2Name, func() { output = output + "|task two called|" })
-	lifecyle.AddHook(task3Name, func() { output = output + "|task three called|" }, task2Name, PRE)
+	lifecyle.AddTask(task1Name, func(luggage interface{}) { output = output + "|task one called|" })
+	lifecyle.AddTask(task2Name, func(luggage interface{}) { output = output + "|task two called|" })
+	lifecyle.AddHook(task3Name, func(luggage interface{}) { output = output + "|task three called|" }, task2Name, PRE)
 
-	lifecyle.Execute()
+	lifecyle.Execute(nil)
 
 	if output != "|task one called||task three called||task two called|" {
 		t.Error("Lifecyle execution went wrong. Order:" + output)

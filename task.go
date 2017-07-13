@@ -7,24 +7,24 @@ type TaskName string
 // task handles a process with hooks
 type task struct {
 	Name      TaskName
-	Process   func()
+	Process   func(luggage interface{})
 	preHooks  []*task
 	postHooks []*task
 }
 
 // Run runs the task with hooks
-func (t task) Run() {
+func (t task) Run(luggage interface{}) {
 	// run pre hooks
 	for _, task := range t.preHooks {
-		task.Run()
+		task.Run(luggage)
 	}
 
 	// run task itself
-	t.Process()
+	t.Process(luggage)
 
 	// run post hooks
 	for _, task := range t.postHooks {
-		task.Run()
+		task.Run(luggage)
 	}
 }
 
